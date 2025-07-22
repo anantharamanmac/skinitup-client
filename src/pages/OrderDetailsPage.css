@@ -1,0 +1,84 @@
+.order-details-container {
+  max-width: 1000px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.order-title {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #333;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+}
+
+.order-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.order-section {
+  background: #f7f7f7;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.order-section h4 {
+  margin-bottom: 1rem;
+  color: #444;
+}
+
+.order-items h4 {
+  margin-bottom: 1rem;
+  color: #444;
+}
+
+.order-items table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.order-items table th,
+.order-items table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.order-items table th {
+  background-color: #fafafa;
+}
+
+.badge {
+  padding: 4px 10px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.badge-delivered {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.badge-pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.badge-canceled {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.order-details-loading {
+  text-align: center;
+  padding: 5rem;
+  font-size: 1.2rem;
+  color: #777;
+}
