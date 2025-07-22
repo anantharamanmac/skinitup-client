@@ -43,7 +43,9 @@ const MyOrdersPage = () => {
       <h2>🧾 My Orders</h2>
 
       {loading ? (
-        <p>Loading your orders...</p>
+        <div className="spinner-container">
+          <div className="spinner"></div>
+        </div>
       ) : orders.length === 0 ? (
         <p>You haven’t placed any orders yet.</p>
       ) : (
