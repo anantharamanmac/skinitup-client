@@ -75,14 +75,13 @@ body {
   cursor: pointer;
 }
 
-/* Category Bar */
 .category-bar {
   display: flex;
-  gap: 2rem;
-  padding: 1rem;
-  background: #f0f0f0;
   justify-content: center;
-  transition: all 0.3s ease;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  background: #fff;
 }
 
 .category-bar span {
@@ -295,4 +294,9 @@ body {
 .product-link:hover {
   opacity: 0.9;
   transition: 0.2s ease;
+}
+@media (max-width: 768px) {
+  .category-bar {
+    display: none !important;
+  }
 }
