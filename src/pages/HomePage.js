@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useOutletContext } from 'react-router-dom';
 import ScratchCard from './ScratchCard';
-import NavBar from '../components/NavBar';
 import 'react-toastify/dist/ReactToastify.css';
 import './HomePage.css';
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
   const [userId, setUserId] = useState('guest');
-  const [search, setSearch] = useState('');
   const [showScratchModal, setShowScratchModal] = useState(false);
   const location = useLocation();
+  const { search, setSearch } = useOutletContext(); // shared from Layout
 
   const API_BASE = process.env.REACT_APP_API_BASE_URL;
 
@@ -68,7 +67,13 @@ const HomePage = () => {
   return (
     <div className="homepage">
       <ToastContainer />
-      <NavBar search={search} setSearch={setSearch} />
+       {/* CATEGORY BAR ONLY ON HOMEPAGE */}
+       <nav className="category-bar open">
+         <span>Stickers</span>
+         <span>Skins</span>
+         <span>Wallpapers</span>
+         <span>Accessories</span>
+       </nav>
 
       {/* HERO SECTION */}
       <section className="hero-banner">

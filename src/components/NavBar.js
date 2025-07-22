@@ -110,12 +110,6 @@ const NavBar = ({ search, setSearch }) => {
         </div>
       </header>
 
-      <nav className={`category-bar ${menuOpen ? 'open' : ''}`}>
-        <span>Stickers</span>
-        <span>Skins</span>
-        <span>Wallpapers</span>
-        <span>Accessories</span>
-      </nav>
     </>
   );
 };
