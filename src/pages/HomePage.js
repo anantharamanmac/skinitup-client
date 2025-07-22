@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useLocation, useOutletContext } from 'react-router-dom';
 import ScratchCard from './ScratchCard';
 import 'react-toastify/dist/ReactToastify.css';
+import { Link } from 'react-router-dom';
 import './HomePage.css';
 
 const HomePage = () => {
@@ -115,20 +116,22 @@ const HomePage = () => {
       )}
 
       {/* PRODUCTS */}
-      <section className="product-grid">
+            <section className="product-grid">
         <h2>{search.trim() ? `Results for "${search}"` : 'New Arrivals'}</h2>
         <div className="grid">
           {filteredProducts.length > 0 ? (
             filteredProducts.map((product) => (
               <div key={product._id} className="product-card">
-                <img src={product.image || 'https://via.placeholder.com/300'} alt={product.name} />
-                <h4>{product.name}</h4>
+                <Link to={`/product/${product._id}`} className="product-link">
+                  <img src={product.image || 'https://via.placeholder.com/300'} alt={product.name} />
+                  <h4>{product.name}</h4>
+                </Link>
                 <p>₹{product.price}</p>
                 <button onClick={() => addToCart(product)}>Add to Cart</button>
               </div>
             ))
           ) : (
-            <p>No products found.</p>
+          <p>No products found.</p>
           )}
         </div>
       </section>

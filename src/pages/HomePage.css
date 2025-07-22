@@ -288,3 +288,11 @@ body {
   border-radius: 6px;
   cursor: pointer;
 }
+.product-link {
+  text-decoration: none;
+  color: inherit;
+}
+.product-link:hover {
+  opacity: 0.9;
+  transition: 0.2s ease;
+}

@@ -12,6 +12,7 @@ import ShippingPage from './pages/ShippingPage';
 import OrderDetailsPage from './pages/OrderDetailsPage';
 import MyOrdersPage from './pages/MyOrdersPage';
 import ScratchCard from './pages/ScratchCard';
+import ProductDetailsPage from './pages/ProductDetailsPage';
 
 // Admin Pages
 import AdminDashboard from './pages/AdminDashboard';
@@ -34,6 +35,7 @@ const App = () => {
           <Route path="/order/:id" element={<OrderDetailsPage />} />
           <Route path="/myorders" element={<MyOrdersPage />} />
           <Route path="/scratchcard" element={<ScratchCard />} />
+          <Route path="/product/:id" element={<ProductDetailsPage />} />
 
           {/* ✅ Protected Admin Routes */}
           <Route path="/admin" element={<AdminRoute />}>
