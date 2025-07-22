@@ -11,7 +11,7 @@ const HomePage = () => {
   const [userId, setUserId] = useState('guest');
   const [showScratchModal, setShowScratchModal] = useState(false);
   const location = useLocation();
-  const { search, setSearch } = useOutletContext(); // shared from Layout
+  const { search, setSearch } = useOutletContext();
 
   const API_BASE = process.env.REACT_APP_API_BASE_URL;
 
@@ -64,34 +64,45 @@ const HomePage = () => {
     });
   };
 
+  const filteredProducts = products.filter((p) =>
+    p.name.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <div className="homepage">
       <ToastContainer />
-       {/* CATEGORY BAR ONLY ON HOMEPAGE */}
-       <nav className="category-bar open">
-         <span>Stickers</span>
-         <span>Skins</span>
-         <span>Wallpapers</span>
-         <span>Accessories</span>
-       </nav>
 
-      {/* HERO SECTION */}
-      <section className="hero-banner">
-        <div className="hero-text">
-          <h1>Stylish Skins & Stickers</h1>
-          <p>Up to 50% Off on Launch Week!</p>
-          <button>Shop Now</button>
-        </div>
-        <img src="/banner.jpg" alt="Hero" className="hero-img" />
-      </section>
+      {/* CATEGORY BAR ONLY WHEN NOT SEARCHING */}
+      {search.trim() === '' && (
+        <nav className="category-bar open">
+          <span>Stickers</span>
+          <span>Skins</span>
+          <span>Wallpapers</span>
+          <span>Accessories</span>
+        </nav>
+      )}
 
-      {/* PROMO SECTION */}
-      <section className="promo-section">
-        <div className="promo-box" onClick={() => setShowScratchModal(true)}>🔥 Offers</div>
-        <div className="promo-box">🚚 Free Shipping</div>
-        <div className="promo-box">🎁 Discounts</div>
-        <div className="promo-box">🔐 Secure</div>
-      </section>
+      {/* HERO SECTION ONLY WHEN NOT SEARCHING */}
+      {search.trim() === '' && (
+        <section className="hero-banner">
+          <div className="hero-text">
+            <h1>Stylish Skins & Stickers</h1>
+            <p>Up to 50% Off on Launch Week!</p>
+            <button>Shop Now</button>
+          </div>
+          <img src="/banner.jpg" alt="Hero" className="hero-img" />
+        </section>
+      )}
+
+      {/* PROMO SECTION ONLY WHEN NOT SEARCHING */}
+      {search.trim() === '' && (
+        <section className="promo-section">
+          <div className="promo-box" onClick={() => setShowScratchModal(true)}>🔥 Offers</div>
+          <div className="promo-box">🚚 Free Shipping</div>
+          <div className="promo-box">🎁 Discounts</div>
+          <div className="promo-box">🔐 Secure</div>
+        </section>
+      )}
 
       {/* SCRATCH MODAL */}
       {showScratchModal && (
@@ -105,18 +116,20 @@ const HomePage = () => {
 
       {/* PRODUCTS */}
       <section className="product-grid">
-        <h2>New Arrivals</h2>
+        <h2>{search.trim() ? `Results for "${search}"` : 'New Arrivals'}</h2>
         <div className="grid">
-          {products
-            .filter((p) => p.name.toLowerCase().includes(search.toLowerCase()))
-            .map((product) => (
+          {filteredProducts.length > 0 ? (
+            filteredProducts.map((product) => (
               <div key={product._id} className="product-card">
                 <img src={product.image || 'https://via.placeholder.com/300'} alt={product.name} />
                 <h4>{product.name}</h4>
                 <p>₹{product.price}</p>
                 <button onClick={() => addToCart(product)}>Add to Cart</button>
               </div>
-            ))}
+            ))
+          ) : (
+            <p>No products found.</p>
+          )}
         </div>
       </section>
     </div>

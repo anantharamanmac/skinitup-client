@@ -50,21 +50,25 @@ const AdminProductPage = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleImageUpload = async (e) => {
-    const file = e.target.files[0];
-    const formData = new FormData();
-    formData.append('image', file);
+ const handleImageUpload = async (e) => {
+  const file = e.target.files[0];
+  const formData = new FormData();
+  formData.append('image', file);
 
-    try {
-      const { data } = await axios.post(`${API_BASE}/api/upload`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
-      setForm({ ...form, image: data.imageUrl });
-      toast.success('Image uploaded successfully');
-    } catch (err) {
-      toast.error('Image upload failed');
-    }
-  };
+  try {
+    const { data } = await axios.post(`${API_BASE}/api/upload`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${localStorage.getItem('token')}`, // ✅ make sure token is present
+      },
+    });
+    setForm({ ...form, image: data.imageUrl });
+    toast.success('Image uploaded successfully');
+  } catch (err) {
+    toast.error(err.response?.data?.message || 'Image upload failed');
+  }
+};
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
