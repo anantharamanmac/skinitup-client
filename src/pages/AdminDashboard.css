@@ -108,3 +108,33 @@ h2 {
   font-weight: 600;
   color: #333;
 }
+.badge {
+  padding: 5px 8px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.bg-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.bg-primary {
+  background-color: #cce5ff;
+  color: #004085;
+}
+.toggle-btn {
+  margin-left: 10px;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  border: none;
+  border-radius: 6px;
+  background-color: #444;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.toggle-btn:hover {
+  background-color: #000;
+}

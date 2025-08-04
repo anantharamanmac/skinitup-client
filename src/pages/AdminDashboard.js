@@ -7,6 +7,8 @@ function AdminDashboard() {
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 5;
 
+  const API_BASE = process.env.REACT_APP_API_BASE_URL;
+
   useEffect(() => {
     const fetchUsers = async () => {
       const token = localStorage.getItem('token');
@@ -17,10 +19,9 @@ function AdminDashboard() {
       }
 
       try {
-        const res = await axios.get(
-          `${process.env.REACT_APP_API_BASE_URL}/api/admin/users`,
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
+        const res = await axios.get(`${API_BASE}/api/admin/users`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         setUsers(res.data);
       } catch (err) {
         console.error('Error fetching users:', err.response?.data || err.message);
@@ -32,7 +33,24 @@ function AdminDashboard() {
     };
 
     fetchUsers();
-  }, []);
+  }, [API_BASE]);
+
+  const toggleAdmin = async (userId, newStatus) => {
+    try {
+      const token = localStorage.getItem('token');
+      await axios.put(
+        `${API_BASE}/api/admin/users/${userId}/admin`,
+        { isAdmin: newStatus },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      const updatedUsers = users.map((user) =>
+        user._id === userId ? { ...user, isAdmin: newStatus } : user
+      );
+      setUsers(updatedUsers);
+    } catch (err) {
+      console.error('Failed to update admin status:', err.response?.data || err.message);
+    }
+  };
 
   const totalPages = Math.ceil(users.length / usersPerPage);
   const indexOfLastUser = currentPage * usersPerPage;
@@ -61,6 +79,12 @@ function AdminDashboard() {
                   <span className={`badge ${user.isAdmin ? 'bg-success' : 'bg-primary'}`}>
                     {user.isAdmin ? 'Admin' : 'User'}
                   </span>
+                  <button
+                    className="toggle-btn"
+                    onClick={() => toggleAdmin(user._id, !user.isAdmin)}
+                  >
+                    {user.isAdmin ? 'Revoke' : 'Make Admin'}
+                  </button>
                 </td>
               </tr>
             ))}
